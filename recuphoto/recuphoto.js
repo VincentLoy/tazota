@@ -25,7 +25,7 @@ function principale(){
                             var photoOriginale=('<a href="'+this.url_o+'" target="_blank"> photo originale</a>');
                         
                             /* creation d'un lien commentaire pour afficher les commentaires quand ils sont demandes */
-                            var commentaires=('<a href="#" class="commentaires"> ses commentaires</a>');
+                            var commentaires=('<a href="#" class="commentaires"> ses commentaires</a><section class="commentaire_content"></section>');
                             
                             var li=$('<li data-id='+this.id+'>');
                             li.append(img);
@@ -58,10 +58,19 @@ function affichCom(){
 	       success: function(resultat)
 				{
                     /*console.dir(resultat);*/
+                    var ul=$('<ul>');
                     $(resultat.comments.comment).each(function(){
                         console.log(this.authorname);
                         console.log(this.datecreate);
                         console.log(this._content);
+                        var li=$('<li>');
+                        var h2=('<h2> nom:'+this.authorname+' date: '+this.datecreate+'</h2>');
+                        var p=('<p>'+this._content+'</p>');
+                        
+                        li.append(h2);
+                        li.append(p);
+                        ul.append(li);
+                        $('.commentaire_content').html(ul);
                     });
 				}
         });

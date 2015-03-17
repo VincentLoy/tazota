@@ -23,8 +23,8 @@
     -ms-touch-action: none;
 }
 .leaflet-marker-icon{
-    border-radius: 50%;
-    border: 2px solid #73b4e4;
+    /*border-radius: 50%;
+    border: 2px solid #73b4e4;*/
 }
 .leaflet-tile,
 .leaflet-marker-icon,

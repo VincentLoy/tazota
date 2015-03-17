@@ -20,7 +20,24 @@
             "latitude" : 31.791702,
             "longitude" : -7.092619999999999,
             "surroundCountry" : true,
-            "geoJsonFilePath" : 'js/MAR.geo.json'
+            "geoJsonFilePath" : 'js/MAR.geo.json',
+            "flickrAPIkey" : "ea7d94db5e099cd59bc86a7460b563b1",
+            "geoJsonStyles" : {
+                    "color": "rgba(52, 73, 94,0.4)",
+                    "weight": 5,
+                    "opacity": 1
+                },
+            "setBounds": true,
+            "maxBounds" : {
+                "southWest" : {
+                    "latitude" : 20.21066,
+                    "longitude" : -18.89648
+                },
+                "northEast" : {
+                    "latitude" : 37.01133,
+                    "longitude" :  0.08789
+                }
+            }
         };
 
         var parameters=$.extend(defauts, options);
@@ -46,19 +63,45 @@
                 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
                 id: 'examples.map-i875mjb7'
             }).addTo(map);
+
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+
+
+
             map._layersMaxZoom= parameters.maxZoom;
             map._layersMinZoom= parameters.minZoom;
+
+            if(parameters.setBounds) {
+                var southWest = L.latLng(parameters.maxBounds.southWest.latitude, parameters.maxBounds.southWest.longitude),
+                    northEast = L.latLng(parameters.maxBounds.northEast.latitude, parameters.maxBounds.northEast.longitude),
+                    bounds = L.latLngBounds(southWest, northEast);
+
+                map.setMaxBounds(bounds);
+            }
 
             if(parameters.surroundCountry) {
 
                 $.getJSON(parameters.geoJsonFilePath, function(data){
                     console.dir(data);
-                    L.geoJson(data).addTo(map);
+                    L.geoJson(data, parameters.geoJsonStyles).addTo(map);
 
                 }).fail(function(jqxhr, textStatus, error){
                     console.error(error+" : "+textStatus);
                 });
             }
+
+            var popup = L.popup();
+
+            function onMapClick(e) {
+                popup
+                    .setLatLng(e.latlng)
+                    .setContent("You clicked the map at " + e.latlng.toString())
+                    .openOn(map);
+            }
+
+            map.on('click', onMapClick);
+
 
 
         });

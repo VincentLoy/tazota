@@ -50,7 +50,6 @@
             $(this).append('<div id="tazota-map"></div>');
             $(this).append('<div class="map-overlay map-overlay-hidden">'+
             '<div class="map-overlay-content">'+
-                '<a class="close-overlay">Fermer</a>'+
             '</div></div>');
             /* Default vars */
             var map, markers, oms;
@@ -112,7 +111,7 @@
 
                 $(data.photos.photo).each(function () {
 
-                    var $details = '<a class="details-btn" data-id="'+this.id+'">Voir cette photo</a>';
+                    var $details = '<a class="details-btn" data-url="'+this.url_m+'" data-id="'+this.id+'">Voir cette photo</a>';
 
                     var popupContent = '<strong>'+this.title+'</strong>'+
                         '<br/><img src="'+this.url_s+'"/><br/>'+$details;
@@ -132,19 +131,39 @@
 
                 });
                 markers.addTo(map);
-
-                $('.close-overlay').click(function(){
-                    $('.map-overlay').addClass('map-overlay-hidden');
-                });
             });
 
             $container.on('click', '.details-btn', function(){
                 var pictID = $(this).attr('data-id');
-                displayPictureDetails(pictID);
+                var pictURL = $(this).attr('data-url');
+                displayPictureDetails(pictID, pictURL);
             });
 
-            function displayPictureDetails(img) {
-                $('.map-overlay').removeClass('map-overlay-hidden');
+            function displayPictureDetails(pictID, url) {
+                $('.map-overlay-content').empty();
+
+                $.getJSON('https://api.flickr.com/services/rest/?&method=flickr.photos.getInfo&api_key='+parameters.flickrAPIkey+'&photo_id='+pictID+'&format=json&nojsoncallback=1;', function (data) {
+                    console.dir(data);
+
+                    var $img = $('<img/>').addClass('img-big').attr("src", url);
+                    var $title = $('<h2>'+data.photo.title._content+'</h2>');
+                    var $desc = $('<p>'+data.photo.description._content+'</p>');
+                    var $closeBtn = $('<a class="close-overlay">Fermer</a>');
+
+
+                    $('.map-overlay-content')
+                        .append($title)
+                        .append($img)
+                        .append($desc)
+                        .append($closeBtn);
+
+                    $closeBtn.click(function(){
+                        $('.map-overlay').addClass('map-overlay-hidden');
+                    });
+
+                    $('.map-overlay').removeClass('map-overlay-hidden');
+
+                });
             }
 
 

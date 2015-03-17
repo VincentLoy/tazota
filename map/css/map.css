@@ -31,10 +31,15 @@
 }
 
 .map-overlay > .map-overlay-content {
-    height: 98%;
+    height: 95%;
     background: #fff;
     position: relative;
 }
+
+.map-overlay-content .img-big {
+    margin: 15px;
+}
+
 .map-overlay > .map-overlay-content > .close-overlay {
     position: absolute;
     top: 10px;

@@ -22,7 +22,9 @@ function principale(){
                             var infos=('<p>titre: '+this.title+' latitude: '+this.latitude+' longitude: '+this.longitude+'</p>');
                             
                             var photoOriginale=('<a href="'+this.url_o+'" target="_blank"> photo originale</a>');
-                            var commentaires=('<a href="#"> ses commentaires</a>');
+                        
+                            /* creation d'un lien commentaire pour afficher les commentaires quand ils sont demandes */
+                            var commentaires=('<a href="#" id="commentaires"> ses commentaires</a>');
                             
                             var li=$('<li>');
                             li.append(img);
@@ -31,10 +33,19 @@ function principale(){
                             li.append(commentaires);
                             
                             $("#gallerie").append(li);
+                        
+                            
+                            $("#commentaires").click(function(event, idphoto){
+                                
+                                console.log(idphoto);
+                                afficherComm();
+                            });
                             
     				});
 				}
     });
 }
 
-
+function afficherComm(){
+    console.log("test2");
+}

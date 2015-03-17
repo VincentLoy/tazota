@@ -5,6 +5,6 @@
 (function () {
     "use strict";
 
-    $('#map').tazota();
+    $('#map-container').tazota();
 
 })(jQuery);

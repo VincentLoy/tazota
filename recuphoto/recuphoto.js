@@ -3,13 +3,16 @@ $(document).ready(principale) ;
 function principale(){
     
     console.log("test requete photos");
+    /* appel de la requete permettant d'afficher les photos de l'utilisateur Z'win */
     afficherPhotosFlickr();
+    
+    /* appel de la requete permettant d'afficher toutes les photos et les classes par note */
     sortPhotosByFavs();
 
 }
 
 function afficherPhotosFlickr(){
-    /* Requete permettant de recuperer toutes les photos dans differents format faites par l'utilisateur, son nom, sa position gps, et son lien */
+    /* Requete permettant de recuperer toutes les photos dans differents formats faites par l'utilisateur, son nom, sa position gps, et son lien */
     
     $.ajax({
 	url:'https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=d94910ea3a87e262d42db388b4cb73c4&user_id=131175339%40N05&extras=geo,url_sq,url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o, comments&format=json&nojsoncallback=1;',
@@ -23,7 +26,7 @@ function afficherPhotosFlickr(){
                             console.log(this.latitude);
                             console.log(this.longitude);*/
                         
-                            /* affichage dans le html */
+                            /* definition des éléments à afficher dans le html */
                             var img=("<img src='"+this.url_s+"' >");
                             var infos=('<p>titre: '+this.title+' latitude: '+this.latitude+' longitude: '+this.longitude+'</p>');
                             
@@ -33,7 +36,10 @@ function afficherPhotosFlickr(){
                             var commentaires=('<a href="#" class="commentaires"> ses commentaires</a>');
                             var notes=('<a href="#" class="notes"> voir le nombre de favoris</a>');
                             
+                            /* stockage de l'id dans un data pour pouvoir l'utiliser pour les commentaires et votes */
                             var li=$('<li data-id='+this.id+'>');
+                        
+                            /* ajout dans le html */
                             li.append(img);
                             li.append(infos);
                             li.append(photoOriginale);
@@ -49,6 +55,7 @@ function afficherPhotosFlickr(){
 /* cela ne se lance que lorsque la requete ajax est terminée */
 $(document).ajaxComplete(function(){
     
+    /* event click */
     $('.commentaires').on('click', affichCom);
     $('.notes').on('click', affichnbFavoris);
     
@@ -147,11 +154,13 @@ function sortPhotosByFavs(){
                   console.log(resultat);
                   var ul=$('<ul>');
                   $(resultat.photos.photo).each(function(){
+                      
                     var img=$("<img src='"+this.url_s+"' >"); 
                     console.log(img);
                     var li=$('<li>');
                     li.append(img);
                     ul.append(li);
+                      
                   });
                     $("#best").append(ul);
 				}

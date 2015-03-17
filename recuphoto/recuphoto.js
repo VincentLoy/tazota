@@ -25,7 +25,7 @@ function principale(){
                             var photoOriginale=('<a href="'+this.url_o+'" target="_blank"> photo originale</a>');
                         
                             /* creation d'un lien commentaire pour afficher les commentaires quand ils sont demandes */
-                            var commentaires=('<a href="#" class="commentaires"> ses commentaires</a><section class="commentaire_content"></section>');
+                            var commentaires=('<a href="#" class="commentaires"> ses commentaires</a>');
                             
                             var li=$('<li data-id='+this.id+'>');
                             li.append(img);
@@ -70,7 +70,7 @@ function affichCom(){
                         li.append(h2);
                         li.append(p);
                         ul.append(li);
-                        $('.commentaire_content').html(ul);
+                        $('#commentaire_content').html(ul);
                     });
 				}
         });

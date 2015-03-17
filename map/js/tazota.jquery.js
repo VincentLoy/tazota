@@ -20,7 +20,7 @@
             "longitude" : -7.092619999999999,
             "surroundCountry" : true,
             "geoJsonFilePath" : 'js/MAR.geo.json',
-            "flickrAPIkey" : "ea7d94db5e099cd59bc86a7460b563b1",
+            "flickrAPIkey" : "d94910ea3a87e262d42db388b4cb73c4",
             "flickrUserID" : "131175339%40N05",
             "geoJsonStyles" : {
                     "color": "rgba(52, 73, 94,0.4)",
@@ -160,10 +160,78 @@
                     $closeBtn.click(function(){
                         $('.map-overlay').addClass('map-overlay-hidden');
                     });
+                    $.ajax({
+                        url:'https://api.flickr.com/services/rest/?method=flickr.photos.getFavorites&api_key='+parameters.flickrAPIkey+'&photo_id='+pictID+'&format=json&nojsoncallback=1',
+                        success: function(resultat)
+                        {
+                            /*console.dir(resultat);*/
 
-                    $('.map-overlay').removeClass('map-overlay-hidden');
+                            /* recuperation de l'attribut qui contient la taille du tableau */
+                            var nbAvis=resultat.photo.person.length;
+                            console.log(nbAvis);
+
+                            var $p=$('<p>'+nbAvis+' favoris</p>').addClass('favoris');
+
+                            $('.map-overlay-content').append($p);
+
+                            $.ajax({
+                                url:'https://api.flickr.com/services/rest/?method=flickr.photos.comments.getList&api_key='+parameters.flickrAPIkey+'&photo_id='+pictID+'&format=json&nojsoncallback=1',
+                                success: function(resultat)
+                                {
+                                    /*console.dir(resultat);*/
+                                    var ul=$('<ul>');
+                                    var $commentDiv = $('<div/>').addClass('comments-container');
+                                    $(resultat.comments.comment).each(function(){
+                                        console.log(this.authorname);
+                                        console.log(this.datecreate);
+                                        console.log(this._content);
+
+                                        /* l'api renvoie une date de type timestamp donc il faut la convertir */
+                                        var date=convertirTimeStamp(this.datecreate);
+
+                                        var li=$('<li>');
+                                        var h2=('<h2> nom:'+this.authorname+' date: '+date+'</h2>');
+                                        var p=('<p>'+this._content+'</p>');
+
+                                        li.append(h2);
+                                        li.append(p);
+                                        ul.append(li);
+                                        $commentDiv.html(ul);
+
+                                        $('.map-overlay-content').append($commentDiv);
+                                    });
+                                    $('.map-overlay').removeClass('map-overlay-hidden');
+                                }
+                            });
+                        }
+                    });
 
                 });
+            }
+
+            function convertirTimeStamp(timestamp){
+
+                /* on cree une date de type date avec le timestamp */
+                var date = new Date(timestamp*1000);
+
+                /*recuperer du jour mois annees contenu dans l'objet date*/
+                var jours = date.getDate();
+                var mois= date.getMonth()+1;
+                var annees= date.getFullYear();
+
+                console.log(jours);
+                console.log(mois);
+                console.log(annees);
+
+                /* on recupere les heures et les minutes */
+                var hours = date.getHours();
+
+                var minutes = "0" + date.getMinutes();
+
+                /* la date renvoyée est de type 15h47 */
+                var formattedTime = jours+'/'+mois+'/'+annees+' à '+hours + ':' + minutes.substr(minutes.length-2);
+
+                return formattedTime;
             }
 
 

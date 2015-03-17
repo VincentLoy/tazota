@@ -1,7 +1,11 @@
 ### tazota - projet CCC 2015
 
 
-## Tazota jQuery Plugin
+## Tazota jQuery Plugin (dossier map/js/tazota.jquery.js)
+
+###Dependances :
+
+jQuery, leaflet, leaflet-oms.js (fichiers inclus dans /js ou via CDN dans la demo).
 
 ###Paremeters :
 

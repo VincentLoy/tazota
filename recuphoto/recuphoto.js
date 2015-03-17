@@ -63,8 +63,11 @@ function affichCom(){
                         console.log(this.authorname);
                         console.log(this.datecreate);
                         console.log(this._content);
+                        
+                        /* l'api renvoie une date de type timestamp donc il faut la convertir */
+                        var date=convertirTimeStamp(this.datecreate);
                         var li=$('<li>');
-                        var h2=('<h2> nom:'+this.authorname+' date: '+this.datecreate+'</h2>');
+                        var h2=('<h2> nom:'+this.authorname+' date: '+date+'</h2>');
                         var p=('<p>'+this._content+'</p>');
                         
                         li.append(h2);
@@ -76,3 +79,18 @@ function affichCom(){
         });
     }
 
+function convertirTimeStamp(timestamp){
+    
+    /* on cree une date de type date avec le timestamp */
+    var date = new Date(timestamp*1000);
+    
+    /* on recupere les heures et les minutes */
+    var hours = date.getHours();
+    
+    var minutes = "0" + date.getMinutes();
+    
+    /* la date renvoyée est de type 15h47 */
+    var formattedTime = hours + ':' + minutes.substr(minutes.length-2);
+    
+    return formattedTime;
+}

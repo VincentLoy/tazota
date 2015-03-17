@@ -18,7 +18,9 @@
             "maxZoom" : 18,
             "minZoom" : 1,
             "latitude" : 31.791702,
-            "longitude" : -7.092619999999999
+            "longitude" : -7.092619999999999,
+            "surroundCountry" : true,
+            "geoJsonFilePath" : 'js/MAR.geo.json'
         };
 
         var parameters=$.extend(defauts, options);
@@ -46,6 +48,17 @@
             }).addTo(map);
             map._layersMaxZoom= parameters.maxZoom;
             map._layersMinZoom= parameters.minZoom;
+
+            if(parameters.surroundCountry) {
+
+                $.getJSON(parameters.geoJsonFilePath, function(data){
+                    console.dir(data);
+                    L.geoJson(data).addTo(map);
+
+                }).fail(function(jqxhr, textStatus, error){
+                    console.error(error+" : "+textStatus);
+                });
+            }
 
 
         });

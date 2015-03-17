@@ -1,0 +1,6 @@
+Le dossier map contient la map faite avec leaflet qui affiche les différentes photos sur la carte. 
+Lorsque l'on clique sur l'une des photos, l'image est affichée en plus grande, il y a son titre, sa description, ses commentaires flickr, et son nombres de "favoris".
+
+
+Le dossier recuphoto contient les appels ajax nécessaires dont l'affichage de toutes les images de l'utilisateur(Zw'in), l'affichage des commentaires et des favoris en fonction de la photo. 
+Il y a aussi la requête permettant d'afficher les photos des plus "interessantes" aux moins "interessantes".

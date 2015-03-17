@@ -26,12 +26,14 @@ function principale(){
                         
                             /* creation d'un lien commentaire pour afficher les commentaires quand ils sont demandes */
                             var commentaires=('<a href="#" class="commentaires"> ses commentaires</a>');
+                            var notes=('<a href="#" class="notes"> voir le nombre de favoris</a>');
                             
                             var li=$('<li data-id='+this.id+'>');
                             li.append(img);
                             li.append(infos);
                             li.append(photoOriginale);
                             li.append(commentaires);
+                            li.append(notes);
                             
                             $("#gallerie").append(li);                                                             
     				});
@@ -44,6 +46,7 @@ function principale(){
 $(document).ajaxComplete(function(){
     
     $('.commentaires').on('click', affichCom);
+    $('.notes').on('click', affichnbFavoris);
     
 });
 
@@ -66,6 +69,7 @@ function affichCom(){
                         
                         /* l'api renvoie une date de type timestamp donc il faut la convertir */
                         var date=convertirTimeStamp(this.datecreate);
+                        
                         var li=$('<li>');
                         var h2=('<h2> nom:'+this.authorname+' date: '+date+'</h2>');
                         var p=('<p>'+this._content+'</p>');
@@ -77,12 +81,21 @@ function affichCom(){
                     });
 				}
         });
-    }
+}
 
 function convertirTimeStamp(timestamp){
     
     /* on cree une date de type date avec le timestamp */
     var date = new Date(timestamp*1000);
+    
+    /*recuperer du jour mois annees contenu dans l'objet date*/
+    var jours = date.getDate();
+    var mois= date.getMonth()+1;
+    var annees= date.getFullYear();
+    
+    console.log(jours);
+    console.log(mois);
+    console.log(annees);
     
     /* on recupere les heures et les minutes */
     var hours = date.getHours();
@@ -90,7 +103,30 @@ function convertirTimeStamp(timestamp){
     var minutes = "0" + date.getMinutes();
     
     /* la date renvoyée est de type 15h47 */
-    var formattedTime = hours + ':' + minutes.substr(minutes.length-2);
+    var formattedTime = jours+'/'+mois+'/'+annees+' à '+hours + ':' + minutes.substr(minutes.length-2);
     
     return formattedTime;
+}
+
+
+function affichnbFavoris(){
+    
+        var idphoto=$(this).parent().data('id');
+        console.log(idphoto);    
+        
+        /* requete permettant de recuperer le nombre de personnes qui ont mis cette photo en favoris */
+        $.ajax({
+	       url:'https://api.flickr.com/services/rest/?method=flickr.photos.getFavorites&api_key=7edea845a693b2b4ee075bb76339116b&photo_id='+idphoto+'&format=json&nojsoncallback=1',
+	       success: function(resultat)
+				{
+                    /*console.dir(resultat);*/
+                    
+                    /* recuperation de l'attribut qui contient la taille du tableau */
+                    nbAvis=resultat.photo.person.length;
+                    console.log(nbAvis);
+                    
+                    var p=('<p>'+nbAvis+' favoris</p>');
+                    $('#favoris').html(p);
+				}
+        });
 }

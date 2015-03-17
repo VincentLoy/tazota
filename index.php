@@ -5,15 +5,7 @@
  * Date: 17/03/2015
  * Time: 00:02
  */
-    var_dump($_FILES);
-
-    if(1=1 /* Un traitement */) {
-
-        //on se connecte a l'API et on envoi la photo envoyée
-        $api = new FlickrAPI();
-
-        $api::send($img);
-    }
+    
 
 ?>
 
@@ -21,12 +13,20 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>testUpload</title>
+    <title>Upload</title>
+    <script src="jquery.min.js"></script> 
 </head>
 <body>
-<form action method="post">
-    <input type="file" id="pict_upl" name="pict"/>
-    <button type="submit">Envoyer</button>
+
+
+
+ <?php
+     include('upload.php');
+     ?>
+<form  method="post" accept-charset="utf-8" enctype='multipart/form-data'>
+         <p>Nom:  <input type="text" name="name" value="" ></p>
+         <p>Photo: <input type="file" name="file"/></p>
+        <p><input type="submit" value="Envoyer"></p>
 </form>
 </body>
 </html>

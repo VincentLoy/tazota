@@ -12,7 +12,7 @@ function afficherPhotosFlickr(){
     /* Requete permettant de recuperer toutes les photos dans differents format faites par l'utilisateur, son nom, sa position gps, et son lien */
     
     $.ajax({
-	url:'https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=ea7d94db5e099cd59bc86a7460b563b1&user_id=131175339%40N05&extras=geo,url_sq,url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o, comments&format=json&nojsoncallback=1;',
+	url:'https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=d94910ea3a87e262d42db388b4cb73c4&user_id=131175339%40N05&extras=geo,url_sq,url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o, comments&format=json&nojsoncallback=1;',
 	success: function(resultat)
 				{
                     /*console.dir(resultat);*/
@@ -61,7 +61,7 @@ function affichCom(){
         console.log(idphoto);
         
         $.ajax({
-	       url:'https://api.flickr.com/services/rest/?method=flickr.photos.comments.getList&api_key=ea7d94db5e099cd59bc86a7460b563b1&photo_id='+idphoto+'&format=json&nojsoncallback=1',
+	       url:'https://api.flickr.com/services/rest/?method=flickr.photos.comments.getList&api_key=d94910ea3a87e262d42db388b4cb73c4&photo_id='+idphoto+'&format=json&nojsoncallback=1',
 	       success: function(resultat)
 				{
                     /*console.dir(resultat);*/
@@ -120,7 +120,7 @@ function affichnbFavoris(){
         
         /* requete permettant de recuperer le nombre de personnes qui ont mis cette photo en favoris */
         $.ajax({
-	       url:'https://api.flickr.com/services/rest/?method=flickr.photos.getFavorites&api_key=7edea845a693b2b4ee075bb76339116b&photo_id='+idphoto+'&format=json&nojsoncallback=1',
+	       url:'https://api.flickr.com/services/rest/?method=flickr.photos.getFavorites&api_key=d94910ea3a87e262d42db388b4cb73c4&photo_id='+idphoto+'&format=json&nojsoncallback=1',
 	       success: function(resultat)
 				{
                     /*console.dir(resultat);*/
@@ -141,7 +141,7 @@ function sortPhotosByFavs(){
     
     
     $.ajax({
-	url:'https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=ea7d94db5e099cd59bc86a7460b563b1&user_id=131175339%40N05&sort=interestingness-desc&extras=url_sq,url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o, comments&format=json&nojsoncallback=1;',
+	url:'https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=d94910ea3a87e262d42db388b4cb73c4&user_id=131175339%40N05&sort=interestingness-desc&extras=url_sq,url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o, comments&format=json&nojsoncallback=1;',
 	success: function(resultat)
 				{
                   console.log(resultat);

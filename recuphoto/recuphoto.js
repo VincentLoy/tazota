@@ -43,8 +43,6 @@ function principale(){
 /* cela ne se lance que lorsque la requete ajax est terminée */
 $(document).ajaxComplete(function(){
     
-    console.log("test ajax");
-    
     $('.commentaires').on('click', affichCom);
     
 });
@@ -56,14 +54,15 @@ function affichCom(){
         console.log(idphoto);
         
         $.ajax({
-	       url:'https://api.flickr.com/services/rest/?method=flickr.photos.comments.getList&api_key=ea7d94db5e099cd59bc86a7460b563b1&photo_id='+idphoto+'&format=json&nojsoncallback=1&auth_token=72157651388906202-cf9368145e8da944&api_sig=ee93a8e53a8b9daef51d88b1a75fff32',
+	       url:'https://api.flickr.com/services/rest/?method=flickr.photos.comments.getList&api_key=ea7d94db5e099cd59bc86a7460b563b1&photo_id='+idphoto+'&format=json&nojsoncallback=1',
 	       success: function(resultat)
 				{
-                    console.dir(resultat);
-                    /*
+                    /*console.dir(resultat);*/
                     $(resultat.comments.comment).each(function(){
+                        console.log(this.authorname);
+                        console.log(this.datecreate);
                         console.log(this._content);
-                    });*/
+                    });
 				}
         });
     }

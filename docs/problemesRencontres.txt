@@ -1,0 +1,14 @@
+Vincent
+
+Manque de temps
+
+
+
+Theo
+
+Problèmes pour mettre en place l'authentification avec oauth de l'api Flickr
+
+
+Nicolas
+
+Problèmes sur le fait que tout est genere en javascript. A la base, il n'y a rien dans le fichier HTML.

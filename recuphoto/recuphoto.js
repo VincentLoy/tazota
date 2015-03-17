@@ -3,7 +3,12 @@ $(document).ready(principale) ;
 function principale(){
     
     console.log("test requete photos");
-    
+    afficherPhotosFlickr();
+    sortPhotosByFavs();
+
+}
+
+function afficherPhotosFlickr(){
     /* Requete permettant de recuperer toutes les photos dans differents format faites par l'utilisateur, son nom, sa position gps, et son lien */
     
     $.ajax({
@@ -40,7 +45,6 @@ function principale(){
 				}
     });
 }
-
 
 /* cela ne se lance que lorsque la requete ajax est terminée */
 $(document).ajaxComplete(function(){
@@ -129,4 +133,27 @@ function affichnbFavoris(){
                     $('#favoris').html(p);
 				}
         });
+}
+
+
+function sortPhotosByFavs(){
+    /* cette fonction est independante des autres elle va rerécuperer les photos et couple la methode pour afficher le nombre de favoris*/
+    
+    
+    $.ajax({
+	url:'https://api.flickr.com/services/rest/?&method=flickr.photos.search&api_key=ea7d94db5e099cd59bc86a7460b563b1&user_id=131175339%40N05&sort=interestingness-desc&extras=url_sq,url_t, url_s, url_q, url_m, url_n, url_z, url_c, url_l, url_o, comments&format=json&nojsoncallback=1;',
+	success: function(resultat)
+				{
+                  console.log(resultat);
+                  var ul=$('<ul>');
+                  $(resultat.photos.photo).each(function(){
+                    var img=$("<img src='"+this.url_s+"' >"); 
+                    console.log(img);
+                    var li=$('<li>');
+                    li.append(img);
+                    ul.append(li);
+                  });
+                    $("best").append(ul);
+				}
+    });
 }

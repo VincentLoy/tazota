@@ -7,7 +7,15 @@ Manque de temps
 Theo
 
 Problèmes pour mettre en place l'authentification avec oauth de l'api Flickr
+La bibliotheque phpFlickr a été utilisée pour gérée les connexions oAuth avec flickr. 
+Une fois la connexion établie, on récupere un token qui permet ensuite de geré l'upload grace à :
+$f->async_upload
 
+les variables apiKey, apiSecret et token ont été renseignés dans l'ensemble des fichiers.
+
+Docs utiles:
+http://ravikiranj.net/posts/2011/code/how-create-public-photo-uploader-using-flickr/
+http://davidwalsh.name/flickr-php
 
 Nicolas
 

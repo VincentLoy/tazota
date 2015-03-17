@@ -153,7 +153,7 @@ function sortPhotosByFavs(){
                     li.append(img);
                     ul.append(li);
                   });
-                    $("best").append(ul);
+                    $("#best").append(ul);
 				}
     });
 }

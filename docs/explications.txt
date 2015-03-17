@@ -4,3 +4,6 @@ Lorsque l'on clique sur l'une des photos, l'image est affichée en plus grande, 
 
 Le dossier recuphoto contient les appels ajax nécessaires dont l'affichage de toutes les images de l'utilisateur(Zw'in), l'affichage des commentaires et des favoris en fonction de la photo. 
 Il y a aussi la requête permettant d'afficher les photos des plus "interessantes" aux moins "interessantes".
+
+Le fichier upload.php traite et envoi les données vers l'API Flickr. 
+Elle utilise la bibliothque phpFlickr (master). L'upload ne fonctionne pas encore mais tous les paramètres necessaires et la demarche de connexion a l'API Flickr sont en place. 

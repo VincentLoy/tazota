@@ -1,6 +1,6 @@
 ### tazota - projet CCC 2015
 
-Author : [@VincentLoy](https://github.com/VincentLoy) - [@theobalkwill](https://github.com/theobalkwil) - [@Squareseidh](https://github.com/Squareseidh)
+Author : [@VincentLoy](https://github.com/VincentLoy) - [@theobalkwill](https://github.com/theobalkwill) - [@Squareseidh](https://github.com/Squareseidh)
 
 
 ## Tazota jQuery Plugin (dossier map/js/tazota.jquery.js)
